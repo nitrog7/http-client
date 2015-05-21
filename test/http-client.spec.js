@@ -45,6 +45,18 @@ describe('http client', () => {
         expect(request.requestHeaders['Authorization']).toBe('bearer 123');
       });
 
+      it('should provide expected query parameters', () => {
+        var client = new HttpClient()
+          .configure(x => {
+            x.withBaseUrl(baseUrl);
+          });
+
+        client.get('some/cool/path', {test1: 'param1', test2: 'param2'});
+
+        var request = jasmine.Ajax.requests.mostRecent();
+        expect(request.url).toBe('http://example.com/some/cool/path?test1=param1&test2=param2');
+      });
+
     });
 
     describe('response', () => {
