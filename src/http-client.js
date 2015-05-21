@@ -124,11 +124,12 @@ export class HttpClient {
    *
    * @method get
    * @param {String} url The target URL.
+   * @param {Object} params Request query parameters.
    * @return {Promise} A cancellable promise object.
    */
-  get(url){
-    return this.createRequest(url).asGet().send();
-  }
+  get(url, params){
+    return this.createRequest(url).asGet().withParams(params).send();
+  };
 
   /**
    * Sends an HTTP HEAD request.
@@ -146,6 +147,7 @@ export class HttpClient {
    *
    * @method jsonp
    * @param {String} url The target URL.
+   * @param {String} callbackParameterName Name of the callback parameter.
    * @return {Promise} A cancellable promise object.
    */
   jsonp(url, callbackParameterName='jsoncallback'){
